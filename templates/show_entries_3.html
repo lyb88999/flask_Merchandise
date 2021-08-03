@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+{% extends "layout.html" %}
+{% block body %}
+    <h1>商品库存表</h1>
+  {% if session.logged_in %}
+
+  <ul class=entries>
+  <table class="_table_div">
+      <tr><th>商品编号</th><th>截止日期</th><th>库存数量</th><th>是否最新库存</th></tr>
+  {% for entry in entries %}
+    <tr>
+        <td>{{ entry.id }}</td>
+        <td>{{ entry.gcd|safe }} </td>
+        <td>{{ entry.ginum }} </td>
+        <td>{{ entry.flag }} </td>
+          <td><a href="{{ url_for('delete_entry_3', id = entry.id ,gcd=entry.gcd) }}">删除</a></td>
+           <td><a href="{{ url_for('edit_entry_3', id = entry.id ,gcd=entry.gcd) }}">修改</a></td>
+  {% else %}
+    <p><em>暂无商品</em></p>
+    </tr>
+  {% endfor %}
+      <td><a href="{{ url_for('index')}}"> 返回主菜单 </a></td>
+      {%  elif not session.logged_in %}
+      <p><em>您未登陆，无权查看该页面，请点右上角登陆!</em></p>
+      <td><a href="{{ url_for('index')}}"> 返回主菜单 </a></td>
+        {% endif %}
+  </table>
+  </ul>
+{% endblock %}
+
+</body>
+</html>

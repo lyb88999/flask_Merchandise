@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+{% extends "layout.html" %}
+{% block body %}
+  <ul class=entries>
+  <table class="_table_div">
+   <tr><th>商品编号</th><th>型号</th><th>名称</th><th>规格</th><th>生产厂家</th></tr>
+  {% for entry in entries %}
+  <form action="{{ url_for('update_entry_1',id=entry.id) }}" method=post class=add-entry>
+    <tr>
+    <td><h5><input type="text" value="{{ entry.id }}" name="id"></h5></td>
+          <td><input type="text" value="{{ entry.gclass  }}" name="gclass"></td>
+        <td><input type="text" value="{{ entry.gname  }}" name="gname"></td>
+        <td><input type="text" value="{{ entry.gsize  }}" name="gsize"></td>
+        <td><input type="text" value="{{ entry.gpro }}" name="gpro"></td>
+          <td><input type=submit value=Update></td>
+  </form>
+  {% else %}
+
+    <p><em>暂无商品</em></p>
+    </tr>
+  {% endfor %}
+      <td><a href="{{ url_for('show_entries_1')}}"> 返回上一页 </a></td>
+  </table>
+  </ul>
+{% endblock %}
+
+</body>
+</html>

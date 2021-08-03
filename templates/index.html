@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+{% extends "layout.html" %}
+{% block body %}
+  <ul class=index>
+  <table class="_table_div">
+    <tr>
+          <td><a href="{{ url_for('show_entries_1')}}">商品表</a></td>
+          <td><a href="{{ url_for('show_entries_2') }}">商品采购表</a></td>
+          <td><a href="{{ url_for('show_entries_3') }}">商品库存表</a></td>
+          <td><a href="{{ url_for('show_entries_4') }}">商品销售表</a></td>
+    </tr>
+  </table>
+  </ul>
+{% endblock %}
+
+</body>
+</html>

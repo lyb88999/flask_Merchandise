@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+{% extends "layout.html" %}
+{% block body %}
+    <h1>商品表</h1>
+  {% if session.logged_in %}
+    <form action="{{ url_for('add_entry_1') }}" method=post class=add-entry>
+      <dl>
+          <dt>编号:
+        <dd><input type=text size=30 name=id>
+        <dt>型号:
+        <dd><input type=text size=30 name=gclass>
+        <dt>名称:
+        <dd><input type=text size=30 name=gname>
+          <dt>规格:
+        <dd><input type=text size=30 name=gsize>
+          <dt>生产厂家:
+        <dd><input type=text size=30 name=gpro>
+        <dd><input type=submit value=添加商品>
+      </dl>
+    </form>
+    <form action="{{ url_for('select_entry_1') }}" method=post class=select-entry>
+      <dl>
+          <dt>编号:
+        <dd><input type=text size=30 name=id>
+        <dt>型号:
+        <dd><input type=text size=30 name=gclass>
+        <dt>名称:
+        <dd><input type=text size=30 name=gname>
+          <dt>规格:
+        <dd><input type=text size=30 name=gsize>
+          <dt>生产厂家:
+        <dd><input type=text size=30 name=gpro>
+        <dd><input type=submit value=查询>
+      </dl>
+    </form>
+
+  <ul class=entries>
+  <table class="_table_div">
+   <tr><th>商品编号</th><th>型号</th><th>名称</th><th>规格</th><th>生产厂家</th></tr>
+  {% for entry in entries %}
+    <tr>
+        <td>{{ entry.id }}</td>
+        <td>{{ entry.gclass|safe }} </td>
+        <td>{{ entry.gname }} </td>
+        <td>{{ entry.gsize }} </td>
+        <td>{{ entry.gpro }} </td>
+          <td><a href="{{ url_for('delete_entry_1', id = entry.id) }}">删除</a></td>
+           <td><a href="{{ url_for('edit_entry', id = entry.id) }}">修改</a></td>
+  {% else %}
+    <p><em>暂无商品</em></p>
+    </tr>
+  {% endfor %}
+      <td><a href="{{ url_for('index')}}"> 返回主菜单 </a></td>
+      {%  elif not session.logged_in %}
+      <p><em>您未登陆，无权查看该页面，请点右上角登陆!</em></p>
+      <td><a href="{{ url_for('index')}}"> 返回主菜单 </a></td>
+    {% endif %}
+  </table>
+  </ul>
+{% endblock %}
+
+</body>
+</html>

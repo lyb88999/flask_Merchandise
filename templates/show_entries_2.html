@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+{% extends "layout.html" %}
+{% block body %}
+    <h1>商品采购表</h1>
+  {% if session.logged_in %}
+    <form action="{{ url_for('add_entry_2') }}" method=post class=add-entry>
+      <dl>
+          <dt>编号:
+        <dd><input type=text size=30 name=id>
+        <dt>采购日期:
+        <dd><input type=text size=30 name=gpdata>
+        <dt>采购数量:
+        <dd><input type=text size=30 name=gpnum>
+          <dt>采购单价:
+        <dd><input type=text size=30 name=gpp>
+        <dd><input type=submit value=购买商品>
+      </dl>
+    </form>
+    <form action="{{ url_for('select_entry_2') }}" method=post class=select-entry>
+      <dl>
+          <dt>编号:
+        <dd><input type=text size=30 name=id>
+        <dt>采购日期:
+        <dd><input type=text size=30 name=gpdata>
+        <dt>采购数量:
+        <dd><input type=text size=30 name=gpnum>
+          <dt>采购单价:
+        <dd><input type=text size=30 name=gpp>
+        <dd><input type=submit value=查询>
+      </dl>
+    </form>
+  <ul class=entries>
+  <table class="_table_div">
+      <tr><th>商品编号</th><th>采购日期</th><th>采购数量</th><th>采购单价</th></tr>
+  {% for entry in entries %}
+    <tr>
+        <td>{{ entry.id }}</td>
+        <td>{{ entry.gpdata|safe }} </td>
+        <td>{{ entry.gpnum }} </td>
+        <td>{{ entry.gpp }} </td>
+          <td><a href="{{ url_for('delete_entry_2', id = entry.id, gpdata = entry.gpdata) }}">删除</a></td>
+           <td><a href="{{ url_for('edit_entry_2', id = entry.id ,gpdata = entry.gpdata) }}">修改</a></td>
+  {% else %}
+    <p><em>暂无商品</em></p>
+    </tr>
+  {% endfor %}
+      <td><a href="{{ url_for('index')}}"> 返回主菜单 </a></td>
+      {%  elif not session.logged_in %}
+      <p><em>您未登陆，无权查看该页面，请点右上角登陆!</em></p>
+      <td><a href="{{ url_for('index')}}"> 返回主菜单 </a></td>
+      {% endif %}
+  </table>
+  </ul>
+{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+{% extends "layout.html" %}
+{% block body %}
+    <h1>商品销售表</h1>
+  {% if session.logged_in %}
+    <form action="{{ url_for('add_entry_4') }}" method=post class=add-entry>
+      <dl>
+          <dt>编号:
+        <dd><input type=text size=30 name=id>
+        <dt>销售序号:
+        <dd><input type=text size=30 name=sellid>
+        <dt>销售日期:
+        <dd><input type=text size=30 name=selldate>
+          <dt>销售数量:
+        <dd><input type=text size=30 name=snum>
+          <dt>销售单价:
+        <dd><input type=text size=30 name=sp>
+        <dd><input type=submit value=销售>
+      </dl>
+    </form>
+    <form action="{{ url_for('select_entry_4') }}" method=post class=select-entry>
+      <dl>
+          <dt>编号:
+        <dd><input type=text size=30 name=id>
+        <dt>销售序号:
+        <dd><input type=text size=30 name=sellid>
+        <dt>销售日期:
+        <dd><input type=text size=30 name=selldate>
+          <dt>销售数量:
+        <dd><input type=text size=30 name=snum>
+          <dt>销售单价:
+        <dd><input type=text size=30 name=sp>
+        <dd><input type=submit value=查询>
+      </dl>
+    </form>
+
+  <ul class=entries>
+  <table class="_table_div">
+      <tr><th>商品编号</th><th>销售序号</th><th>销售日期</th><th>销售数量</th><th>销售单价</th></tr>
+  {% for entry in entries %}
+    <tr>
+        <td>{{ entry.id }}</td>
+        <td>{{ entry.sellid|safe }} </td>
+        <td>{{ entry.selldate }} </td>
+        <td>{{ entry.snum }} </td>
+        <td>{{ entry.sp }} </td>
+          <td><a href="{{ url_for('delete_entry_4', id = entry.id, sellid=entry.sellid, selldate=entry.selldate) }}">删除</a></td>
+            <td><a href="{{ url_for('edit_entry_4', id = entry.id, sellid=entry.sellid, selldate=entry.selldate) }}">修改</a></td>
+  {% else %}
+    <p><em>暂无商品</em></p>
+    </tr>
+  {% endfor %}
+            <td><a href="{{ url_for('index')}}"> 返回主菜单 </a></td>
+      {%  elif not session.logged_in %}
+      <p><em>您未登陆，无权查看该页面，请点右上角登陆!</em></p>
+      <td><a href="{{ url_for('index')}}"> 返回主菜单 </a></td>
+      {% endif %}
+  </table>
+  </ul>
+{% endblock %}
+
+</body>
+</html>

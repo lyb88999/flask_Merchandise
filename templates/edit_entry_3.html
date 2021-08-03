@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+{% extends "layout.html" %}
+{% block body %}
+  <ul class=entries>
+  <table class="_table_div">
+   <tr><th>商品编号</th><th>截止日期</th><th>库存数量</th><th>是否最新库存</th></tr>
+  {% for entry in entries %}
+  <form action="{{ url_for('update_entry_3',id=entry.id) }}" method=post class=add-entry>
+    <tr>
+    <td><h5><input type="text" value="{{ entry.id }}" name="id"></h5></td>
+          <td><input type="text" value="{{ entry.gcd  }}" name="gcd"></td>
+        <td><input type="text" value="{{ entry.ginum  }}" name="ginum"></td>
+        <td><input type="text" value="{{ entry.flag  }}" name="flag"></td>
+          <td><input type=submit value=Update></td>
+  </form>
+  {% else %}
+
+    <p><em>暂无商品</em></p>
+    </tr>
+  {% endfor %}
+      <td><a href="{{ url_for('show_entries_3')}}"> 返回上一页 </a></td>
+  </table>
+  </ul>
+{% endblock %}
+
+</body>
+</html>
